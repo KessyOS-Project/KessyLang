@@ -27,7 +27,7 @@ struct ASTNode* binexpr(size_t start_line) {
     struct ASTNode* left;
     struct ASTNode* right;
     AST_OP nodetype;
-
+    
     left = primary();
 
     if (last_token.type == TT_EOF) {
