@@ -48,6 +48,7 @@ static void compile(const char* file) {
     lexer_init(buf);
     parse();
 
+    ast_nodebuf_destroy();
     free(buf);
     fclose(fp);
 }
