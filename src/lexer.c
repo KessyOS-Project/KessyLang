@@ -1,5 +1,4 @@
 #include <lexer.h>
-#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <panic.h>
@@ -70,6 +69,7 @@ uint8_t scan(struct Token* out) {
 
     switch (c) {
         case 0:
+            out->type = TT_EOF;
             return 0;
         case '+':
             out->type = TT_PLUS;
@@ -86,7 +86,7 @@ uint8_t scan(struct Token* out) {
         default:
             if (ISDIGIT_ASCII(c)) {
                 out->v.val_int = scanint();
-                printf("%d\n", out->v.val_int);
+                out->type = TT_INTLIT;
             } else {
                 printf(PANIC_START "Syntax error: Invalid token found while scanning - line %d\n", line_number);
                 panic();
@@ -94,7 +94,12 @@ uint8_t scan(struct Token* out) {
 
             break;
     }
+   
+#ifdef KESSL_DEBUG_MODE_VERBOSE
+    printf("[debug-mode-verbose(lexer)]: Got token type %d\n", out->type);
+#endif
 
+    out->line_number = line_number;
     NEXT_TOKEN(1);
     return 1;
 }

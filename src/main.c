@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include <panic.h>
 #include <lexer.h>
-#include <parser.h>
-
+#include <parser/parser.h>
+#include <parser/ast.h>
 
 static const char* current_file = NULL;
 
 
 __attribute__((noreturn)) void panic(void) {
     printf("[Error happened in %s]\n", current_file);
+    ast_nodebuf_destroy();
     exit(1);
 }
 

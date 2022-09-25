@@ -2,6 +2,7 @@
 #define LEXER_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 
 typedef enum {
@@ -9,7 +10,8 @@ typedef enum {
 	TT_MINUS,
 	TT_STAR,
 	TT_SLASH,
-	TT_INTLIT
+	TT_INTLIT,
+    TT_EOF,
 } LEX_TOKEN;
 
 
@@ -24,6 +26,8 @@ struct Token {
 		int64_t val_int;
 		const char* tokstr;
 	} v;
+
+    size_t line_number;
 };
 
 

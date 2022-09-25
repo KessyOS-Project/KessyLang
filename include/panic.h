@@ -2,6 +2,7 @@
 #define PANIC_H
 
 #include <stddef.h>
+#include <stdio.h>
 
 #define PANIC_START "\033[0;31m"
 
