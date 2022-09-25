@@ -1,0 +1,16 @@
+CC = gcc
+CFILES = $(shell find src/ -name "*.c")
+
+bin/klc: $(CFILES)
+	@ mkdir -p bin/
+	$(CC) $^ -Iinclude/	\
+        -Werror=implicit \
+        -Werror=implicit-function-declaration \
+        -Werror=implicit-int \
+        -Werror=int-conversion \
+        -Werror=incompatible-pointer-types \
+        -Werror=int-to-pointer-cast -o $@
+
+
+install:
+	sudo install bin/cesc /usr/local/bin/
