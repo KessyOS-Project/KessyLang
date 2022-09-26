@@ -5,6 +5,7 @@
 #include <lexer.h>
 #include <parser/parser.h>
 #include <parser/ast.h>
+#include <codegen/compile.h>
 
 static const char* current_file = NULL;
 
@@ -12,6 +13,7 @@ static const char* current_file = NULL;
 __attribute__((noreturn)) void panic(void) {
     printf("[Error happened in %s]\n", current_file);
     ast_nodebuf_destroy();
+    compile_end();
     exit(1);
 }
 
@@ -55,6 +57,11 @@ static void compile(const char* file) {
 
 
 int main(int argc, char** argv) {
+    if (argc < 2) {
+        printf("Usage: %s <filename>\n", argv[0]);
+        return 1;
+    }
+
 	for (int i = 1; i < argc; ++i) {
         compile(argv[i]);
 	}

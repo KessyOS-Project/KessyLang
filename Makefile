@@ -2,13 +2,13 @@ CC = gcc
 CFILES = $(shell find src/ -name "*.c")
 
 ifeq ($(debug), 1)
-	EXTRA_FLAGS = -D KESSL_DEBUG_MODE
+	EXTRA_FLAGS = -D KESSL_DEBUG_MODE -fsanitize=address
 else
 	EXTRA_FLAGS = 
 endif
 
 ifeq ($(debug_all), 1)
-	EXTRA_FLAGS = -D KESSL_DEBUG_MODE_VERBOSE -D KESSL_DEBUG_MODE
+	EXTRA_FLAGS = -D KESSL_DEBUG_MODE_VERBOSE -D KESSL_DEBUG_MODE -fsanitize=address
 endif
 
 bin/klc: $(CFILES)
